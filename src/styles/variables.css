@@ -1,0 +1,206 @@
+/* =============================================================
+   Polytechnic Pathway — Design Tokens
+   Style: premium educational travel journal
+   Themes: passport, flight ticket, Singapore journey, exploration
+   ============================================================= */
+
+:root {
+  /* ---------------------------------------------------------
+     1. Colours
+     Palette: navy blue, warm cream, coral red, muted green, gold
+     --------------------------------------------------------- */
+
+  /* Brand — Navy blue */
+  --color-navy-900: #0c1c34;
+  --color-navy-800: #12294d;
+  --color-navy-700: #1b3a66;
+  --color-navy-600: #274c80;
+  --color-navy-500: #3a6299;
+
+  /* Brand — Warm cream */
+  --color-cream-50: #fdfaf3;
+  --color-cream-100: #f9f3e6;
+  --color-cream-200: #f2e8d3;
+  --color-cream-300: #e8dabe;
+
+  /* Brand — Coral red (accent / CTA) */
+  --color-coral-600: #c94a2c;
+  --color-coral-700: #a83a22;
+  --color-coral-500: #e2603f;
+  --color-coral-400: #ec7b5c;
+
+  /* Brand — Muted green (support / success) */
+  --color-green-600: #4a7a5f;
+  --color-green-500: #5f9375;
+  --color-green-400: #7cae91;
+
+  /* Brand — Gold (highlight / detail) */
+  --color-gold-600: #b88a34;
+  --color-gold-500: #c9a24b;
+  --color-gold-400: #d9bd76;
+
+  /* Neutrals */
+  --color-ink: #17212e;
+  --color-ink-soft: #46515f;
+  --color-line: #d9cfbb;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Semantic aliases */
+  --color-bg: var(--color-cream-50);
+  --color-bg-alt: var(--color-cream-100);
+  --color-surface: var(--color-white);
+  --color-text: var(--color-ink);
+  --color-text-muted: var(--color-ink-soft);
+  --color-primary: var(--color-navy-800);
+  --color-accent: var(--color-coral-500);
+  --color-accent-strong: var(--color-coral-700);
+  --color-border: var(--color-line);
+  --color-focus-ring: var(--color-navy-600);
+
+  /* ---------------------------------------------------------
+     2. Typography — font families & type scale
+     --------------------------------------------------------- */
+  --font-display: 'Fraunces', 'Georgia', 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei',
+    sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo,
+    Consolas, monospace;
+
+  /* Modular type scale (~1.25 major third), fluid where useful */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-md: 1.125rem; /* 18px */
+  --text-lg: 1.375rem; /* 22px */
+  --text-xl: 1.75rem; /* 28px */
+  --text-2xl: 2.25rem; /* 36px */
+  --text-3xl: clamp(2.5rem, 4vw + 1rem, 3.5rem); /* 40–56px */
+
+  /* Line heights */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Letter spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.14em;
+
+  /* ---------------------------------------------------------
+     3. Spacing scale (4px base)
+     --------------------------------------------------------- */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px */
+  --space-6: 2rem; /* 32px */
+  --space-7: 2.5rem; /* 40px */
+  --space-8: 3rem; /* 48px */
+  --space-9: 4rem; /* 64px */
+  --space-10: 5rem; /* 80px */
+  --space-11: 6.25rem; /* 100px */
+
+  /* Section vertical rhythm (mobile-first; scaled up in responsive.css) */
+  --section-padding-y: var(--space-8);
+  --grid-gutter: 1.5rem; /* 24px */
+
+  /* ---------------------------------------------------------
+     4. Container widths
+     --------------------------------------------------------- */
+  --container-max: 1200px;
+  --container-wide: 1320px;
+  --container-narrow: 760px;
+  --container-pad-x: var(--space-5);
+
+  /* ---------------------------------------------------------
+     5. Border radii
+     --------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 12px; /* default card radius from wireframe */
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* ---------------------------------------------------------
+     6. Shadows
+     --------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(12, 28, 52, 0.06);
+  --shadow-sm: 0 2px 6px rgba(12, 28, 52, 0.08);
+  --shadow-md: 0 8px 20px rgba(12, 28, 52, 0.1);
+  --shadow-lg: 0 16px 40px rgba(12, 28, 52, 0.14);
+  --shadow-xl: 0 28px 64px rgba(12, 28, 52, 0.18);
+
+  /* ---------------------------------------------------------
+     8. Layering & z-index levels
+     --------------------------------------------------------- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky-header: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* Hero visual layers (L1–L5 from wireframe) */
+  --z-hero-l1: 1; /* background contours */
+  --z-hero-l2: 2; /* flight path & airplane */
+  --z-hero-l3: 3; /* open passport / guidebook base */
+  --z-hero-l4: 4; /* journey ticket overlap */
+  --z-hero-l5: 5; /* stamp & foreground */
+
+  /* ---------------------------------------------------------
+     Motion
+     --------------------------------------------------------- */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 320ms ease;
+
+  /* ---------------------------------------------------------
+     External brand colors (not part of palette but required)
+     --------------------------------------------------------- */
+  --color-line-green: #00b900;   /* LINE messaging brand */
+
+  /* ---------------------------------------------------------
+     Semantic card standards
+     --------------------------------------------------------- */
+  --card-radius:  var(--radius-md);  /* 12px */
+  --card-padding: var(--space-5);    /* 24px */
+  --card-border:  1px solid var(--color-cream-200);
+
+  /* ---------------------------------------------------------
+     Semantic icon-badge standards
+     Maps hardcoded values to palette tokens:
+       #fffaf0 → --color-cream-50  (#fdfaf3  ≈ same warm white)
+       #d6bd7a → --color-gold-400  (#d9bd76  ≈ same warm gold)
+       #17315c → --color-navy-700  (#1b3a66  same dark navy family)
+     --------------------------------------------------------- */
+  --icon-badge-bg:     var(--color-cream-50);
+  --icon-badge-border: var(--color-gold-400);
+  --icon-badge-text:   var(--color-navy-700);
+}
+
+/* ---------------------------------------------------------
+   7. Breakpoints (documented; used via media queries)
+   --------------------------------------------------------- */
+/*
+  --bp-sm:  480px   small phones → large phones
+  --bp-md:  768px   tablets
+  --bp-lg:  1024px  small laptops
+  --bp-xl:  1280px  desktops
+  --bp-2xl: 1440px  large desktops (wireframe reference width)
+
+  Custom media queries are not yet standardised in CSS, so these
+  values are duplicated in responsive.css media queries. Keep them
+  in sync with this table.
+*/

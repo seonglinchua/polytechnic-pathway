@@ -1,0 +1,195 @@
+/* =============================================================
+   Hero section
+   ============================================================= */
+
+.hero {
+  /* Matches artwork background — token: --color-cream-100 ≈ #fbf5ea */
+  background: var(--color-cream-100);
+  padding-block: 76px 64px;   /* 72–80px top, 64px bottom per spec */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Default (mobile): single column, content above artwork */
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+/* ---- Left: text -------------------------------------------- */
+.hero__copy {
+  max-width: 30rem;   /* ~480px */
+}
+
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw + 0.5rem, 3.75rem);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-navy-800);
+  margin-bottom: var(--space-4);
+}
+
+.hero__headline-coral { color: var(--color-accent); }
+
+.hero__accent-line {
+  width: 3rem;
+  height: 3px;
+  background: var(--color-gold-500);
+  border-radius: 2px;
+  margin-bottom: var(--space-5);
+}
+
+.hero__subtext {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 30rem;  /* ~480px — mirrors the column width */
+}
+
+/* CTA row — equal-height buttons, 12px gap */
+.hero__ctas {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-3);   /* 12px */
+  margin-top: var(--space-6);
+  align-items: stretch;
+}
+
+/* Secondary CTA — navy outline on cream background */
+.hero__cta-secondary {
+  background: transparent;
+  color: var(--color-navy-800);
+  border-color: var(--color-navy-800);
+}
+
+.hero__cta-secondary:hover {
+  background: var(--color-navy-800);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero__cta-secondary:active {
+  background: var(--color-navy-900);
+  border-color: var(--color-navy-900);
+  color: var(--color-white);
+  transform: translateY(1px);
+}
+
+.hero__cta-secondary:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Trust microcopy below the buttons */
+.hero__trust {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+}
+
+/* ---- Right: artwork --------------------------------------- */
+.hero__visual {
+  width: 100%;
+  max-width: 560px;   /* mobile limit per spec */
+  margin-inline: auto;
+  line-height: 0;     /* remove inline bottom gap */
+}
+
+.hero__visual picture { display: block; width: 100%; }
+
+.hero__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* No drop-shadow — artwork background blends with section */
+}
+
+/* ---- Polytechnic abbreviation bar removed ---
+   The full directory section (PolytechnicDirectory) now shows
+   all five institutions with badge icons and names.
+   ---- */
+
+/* ---- Responsive -------------------------------------------- */
+
+/* ≥ 900px: two-column layout, artwork right-aligned and raised */
+@media (min-width: 900px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+    gap: 0;
+    align-items: center;
+  }
+
+  .hero__copy {
+    max-width: 30rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Let the illustration become part of the Hero instead of a separate panel. */
+  .hero__visual {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 58%;
+    height: 100%;
+    max-width: none;
+    margin-inline: 0;
+    transform: none;
+    pointer-events: none;
+  }
+
+  .hero__visual picture,
+  .hero__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__image {
+    object-fit: cover;
+    object-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
+    mask-image: linear-gradient(to right, transparent 0%, black 22%);
+  }
+}
+
+/* Undo desktop transform below 900px to prevent overflow */
+@media (max-width: 899px) {
+  .hero__visual {
+    transform: none;
+    overflow: hidden;
+    border-radius: 18px;
+  }
+
+  .hero__visual picture,
+  .hero__image {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+  }
+
+  .hero__image {
+    object-fit: cover;
+  }
+}
+
+/* < 600px: tighter side padding and full-width stacked CTAs */
+@media (max-width: 599px) {
+  .hero {
+    padding-inline: 20px;
+    padding-block: 48px 40px;
+  }
+
+  .hero__inner { gap: var(--space-5); }
+
+  .hero__ctas {
+    flex-direction: column;
+  }
+
+  .hero__ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

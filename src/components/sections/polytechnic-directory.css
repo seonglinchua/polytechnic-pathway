@@ -1,0 +1,254 @@
+/* =============================================================
+   Polytechnic Directory
+   ============================================================= */
+
+.poly-dir {
+  background: var(--color-cream-50);
+  padding-block: var(--space-9);
+}
+
+/* ---- Section header ---------------------------------------- */
+.poly-dir__header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.poly-dir__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy-800);
+}
+
+/* .section-rule is a sibling — handled by global utility */
+
+.poly-dir__subtext {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+  max-width: 44rem;
+  margin-inline: auto;
+  line-height: var(--leading-relaxed);
+}
+
+/* ---- 5-card grid ------------------------------------------- */
+.poly-dir__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+/* ---- Institution card -------------------------------------- */
+.poly-card {
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
+  --poly-accent: var(--color-navy-700);
+  --poly-tint: var(--color-cream-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--card-padding);   /* 24px uniform */
+  background: var(--color-white);
+  border: 1px solid var(--color-cream-200);
+  border-top: 3px solid var(--poly-accent);
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  min-width: 0;
+}
+
+.poly-card:hover {
+  border-color: var(--poly-accent);
+  box-shadow: var(--shadow-md);
+}
+
+/* Custom directory accents for wayfinding — not official brand colours. */
+.poly-card--sp  { --poly-accent: #9b3a32; --poly-tint: #f8e8e5; }
+.poly-card--np  { --poly-accent: #245d86; --poly-tint: #e7f0f6; }
+.poly-card--nyp { --poly-accent: #176b70; --poly-tint: #e4f1f0; }
+.poly-card--tp  { --poly-accent: #69508a; --poly-tint: #eee9f5; }
+.poly-card--rp  { --poly-accent: #3e6b45; --poly-tint: #e9f1e8; }
+
+/* Badge */
+.poly-card__badge {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+  background: var(--poly-tint);
+  border: 1px solid var(--poly-accent);
+  color: var(--poly-accent);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.035em;
+  line-height: 1;
+}
+
+/* Name */
+.poly-card__name {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy-800);
+  line-height: var(--leading-snug);
+  margin-bottom: var(--space-2);
+}
+
+/* Description */
+.poly-card__desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+  flex: 1;  /* pushes actions to the bottom */
+}
+
+/* CTA row */
+.poly-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+/* Primary CTA — coral filled button */
+.poly-card__explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem var(--space-4);
+  background: var(--color-coral-600);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 2.75rem;
+  white-space: normal;
+  text-align: center;
+}
+
+.poly-card__explore:hover {
+  background: var(--color-accent-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.poly-card__explore:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Secondary CTA — plain link with external icon */
+.poly-card__official {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding-inline: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.poly-card__official:hover {
+  color: var(--color-navy-800);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.poly-card__official:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- Compare All Courses CTA block ------------------------ */
+.poly-dir__compare {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  padding: var(--space-6) var(--space-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-cream-200);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-5);
+}
+
+.poly-dir__compare-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy-800);
+  margin-bottom: var(--space-1);
+}
+
+.poly-dir__compare-subtext {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.poly-dir__compare-cta {
+  flex-shrink: 0;
+  /* Uses .btn--outline from global button system */
+  color: var(--color-navy-800);
+  border-color: var(--color-navy-800);
+}
+
+.poly-dir__compare-cta:hover {
+  background: var(--color-navy-800);
+  color: var(--color-white);
+}
+
+/* ---- Independence disclaimer ------------------------------ */
+.poly-dir__disclaimer {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: var(--leading-relaxed);
+  opacity: 0.75;
+}
+
+/* ---- Responsive ------------------------------------------- */
+@media (min-width: 600px) {
+  .poly-dir__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .poly-dir {
+    padding-block: var(--space-9) var(--space-10);
+  }
+
+  .poly-dir__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  .poly-dir__compare {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .poly-dir__compare-text { flex: 1; }
+}
+
+@media (max-width: 599px) {
+  .poly-card { padding: var(--space-4); }
+  .poly-card__desc { display: none; }
+}

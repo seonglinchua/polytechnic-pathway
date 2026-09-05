@@ -1,0 +1,30 @@
+/* =============================================================
+   Polytechnic Pathway — Responsive rules
+   Mobile-first. Breakpoints must stay in sync with the table in
+   variables.css:
+     sm 480 | md 768 | lg 1024 | xl 1280 | 2xl 1440
+   Detailed responsive layout is deferred; only the section
+   rhythm and container scale up here for now.
+   ============================================================= */
+
+/* md — tablets */
+@media (min-width: 768px) {
+  :root {
+    --section-padding-y: var(--space-9);
+    --container-pad-x: var(--space-6);
+  }
+}
+
+/* lg — small laptops */
+@media (min-width: 1024px) {
+  :root {
+    --section-padding-y: var(--space-10);
+  }
+}
+
+/* xl — desktops (approaching wireframe reference width) */
+@media (min-width: 1280px) {
+  :root {
+    --section-padding-y: var(--space-11);
+  }
+}

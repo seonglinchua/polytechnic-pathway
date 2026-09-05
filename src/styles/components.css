@@ -1,0 +1,170 @@
+/* =============================================================
+   Polytechnic Pathway — Shared component & layout primitives
+   ============================================================= */
+
+/* ---- Section gold rule ------------------------------------
+   Short gold bar placed below section headings.
+   Usage: <div className="section-rule" aria-hidden="true" />
+   Add section-rule--left for left-aligned headings.
+   ------------------------------------------------------------ */
+.section-rule {
+  width: 2.5rem;
+  height: 3px;
+  background: var(--color-gold-500);
+  border-radius: 2px;
+  margin-top: var(--space-2);
+  margin-inline: auto;        /* centred by default */
+}
+
+.section-rule--left {
+  margin-inline: 0;           /* left-aligned variant */
+}
+
+/* Centered content container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad-x);
+}
+
+/* Generic section vertical rhythm */
+.section {
+  padding-block: var(--section-padding-y);
+}
+
+/* Scaffolding shell for not-yet-built sections */
+.section-shell {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.section-shell__inner {
+  min-height: 6rem;
+  padding: var(--space-6);
+}
+
+/* Temporary development label shown on each section shell */
+.dev-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-navy-700);
+  background: var(--color-cream-200);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+}
+
+.dev-label__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+/* =============================================================
+   Button system
+   .btn              base (layout + motion)
+   .btn--cta         coral red fill — primary action
+   .btn--outline     navy outline — secondary action
+   .btn--ghost       text-only
+   ============================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.625rem var(--space-5);
+  min-height: 2.75rem;  /* 44px — WCAG 2.5.5 touch-target minimum */
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: var(--radius-sm);  /* 6px */
+  border: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+  user-select: none;
+}
+
+.btn:active  { transform: translateY(1px); }
+
+/* Keyboard focus — visible for all button variants */
+.btn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+/* Primary CTA — coral red */
+.btn--cta {
+  background: var(--color-coral-600);
+  color: var(--color-white);
+  border-color: var(--color-coral-600);
+}
+
+.btn--cta:hover {
+  background: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary — navy outline */
+.btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn--outline:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Ghost — text only */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: transparent;
+}
+
+.btn--ghost:hover {
+  background: var(--color-cream-200);
+}
+
+/* Size modifier */
+.btn--sm {
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--text-xs);
+  min-height: 2.25rem;  /* 36px — small secondary actions */
+}
+
+.btn--lg {
+  padding: 0.875rem var(--space-7);
+  font-size: var(--text-base);
+}

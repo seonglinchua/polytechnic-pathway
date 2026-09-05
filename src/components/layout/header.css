@@ -1,0 +1,520 @@
+/* =============================================================
+   Header — three-zone CSS Grid layout for bilingual stability.
+
+   Zones (desktop >= 1180px):
+     Zone 1  190px  BrandLogo (left)
+     Zone 2  1fr    DesktopNavigation (centre)
+     Zone 3  300px  Lang | Login | CTA (right)
+
+   Translation-stability strategy
+   ─────────────────────────────────────────────────────────────
+   • CSS Grid pins the three zones; no flex reflow on lang switch.
+   • Every nav <li> carries an inline min-width that covers both
+     its EN and ZH label (set in NAV_ITEMS in Header.jsx).
+   • .header__lang-toggle: fixed 5.5rem  (~88px).
+   • .header__cta: min-width 9.5rem     (~152px).
+   • letter-spacing reduced (0.04em) so CJK reads cleanly.
+   ============================================================= */
+
+/* ---- Global height token ------------------------------------ */
+:root { --header-height: 5rem; }   /* 80px */
+
+/* ---- Shell -------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky-header);
+  width: 100%;
+  height: var(--header-height);
+  background: var(--color-navy-800);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: box-shadow var(--transition-base);
+}
+
+.site-header--scrolled {
+  box-shadow: 0 2px 12px rgba(12, 28, 52, 0.28);
+}
+
+/* ---- Inner layout ------------------------------------------- */
+/* Mobile default: flex, logo left / hamburger right             */
+/* Desktop >=1180px: CSS Grid three zones (media query below)    */
+
+/* The .container inside the header must stretch so .header__inner
+   has a real pixel height to centre against. */
+.site-header > .container {
+  height: 100%;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);  /* explicit — no longer depends on container */
+}
+
+/* ── Zone 1: Brand logo ─────────────────────────────────────── */
+.header__logo {
+  display: inline-flex;
+  flex-direction: row;      /* mark left, wordmark right */
+  align-items: center;
+  gap: 0.75rem;             /* 12px — spec: 11–13px */
+  flex-shrink: 0;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0;
+  min-height: 2.75rem;
+}
+
+.header__logo:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+/* Symbol mark — polytechnic-pathway-icon.svg (180×180 with built-in rx=20).
+   At 34px rendered: rx≈4px. CSS border-radius matches SVG's own corners. */
+.header__logo-mark {
+  flex-shrink: 0;
+  width: 2.125rem;   /* 34px */
+  height: 2.125rem;
+  border-radius: 4px;
+  display: block;
+}
+
+/* Wordmark wrapper: stacks the two text lines */
+.header__wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 0;              /* spacing handled by margin-top on secondary */
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.header__wordmark-top {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;   /* 17px — spec: 16–17px */
+  font-weight: 600;        /* spec: 600–650 */
+  letter-spacing: 1.35px;  /* spec: 1.2–1.5px */
+  text-transform: uppercase;
+  color: var(--color-cream-50);       /* warm near-white */
+}
+
+.header__wordmark-bottom {
+  margin-top: 3px;          /* spec: 2–4px separation between lines */
+  font-family: var(--font-body);
+  font-size: 9px;            /* spec: 9–10px */
+  font-weight: 600;
+  letter-spacing: 2.7px;    /* spec: 2.4–2.8px */
+  text-transform: uppercase;
+  color: rgba(255, 250, 240, 0.72);  /* muted warm cream */
+}
+
+/* ── Zone 2: Desktop primary navigation ─────────────────────── */
+.header__nav {
+  display: none;     /* shown at >=1180px */
+  align-items: center;
+  justify-content: center;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+
+/* Each slot: inline min-width (set in JSX) keeps text centred   */
+.header__nav-list > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Shared appearance — nav anchors and dropdown trigger button   */
+.header__nav-link,
+.header__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  padding: 0.5rem 0.5rem;
+  height: 2.75rem;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.875rem;              /* 14px */
+  font-weight: var(--weight-medium); /* 500 — easier to read in Title Case */
+  letter-spacing: 0.01em;
+  /* No text-transform: Title Case comes from the i18n strings */
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.header__nav-link:hover,
+.header__nav-btn:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.header__nav-link:focus-visible,
+.header__nav-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+  color: var(--color-white);
+}
+
+/* Chevron rotates when dropdown is open */
+.header__dropdown-chevron {
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.header__nav-btn[aria-expanded='true'] .header__dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+/* Icon beside the parent nav label */
+.header__nav-parent-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color var(--transition-fast);
+}
+
+.header__nav-parent-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header__nav-btn:hover .header__nav-parent-icon,
+.header__nav-btn[aria-expanded='true'] .header__nav-parent-icon {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Polytechnics dropdown panel ────────────────────────────── */
+.header__dropdown-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.header__dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 17rem;
+  background: var(--color-navy-900);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  list-style: none;
+  padding: var(--space-2) 0;
+  margin: 0;
+  z-index: 1;
+}
+
+.header__dropdown--open {
+  display: block;
+  animation: dropdown-in 130ms ease;
+}
+
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.header__dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.625rem var(--space-4);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.header__dropdown-link:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.header__dropdown-link:focus-visible {
+  outline: 2px solid var(--color-cream-50);
+  outline-offset: -2px;
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Plain items (Course Finder, How It Works, etc.) use a tighter gap */
+.header__dropdown-link--plain {
+  gap: var(--space-2);
+}
+
+/* Decorative icon beside each generic sub-item */
+.header__dropdown-item-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color var(--transition-fast);
+}
+
+.header__dropdown-item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header__dropdown-link:hover .header__dropdown-item-icon,
+.header__dropdown-link:focus-visible .header__dropdown-item-icon {
+  color: var(--color-accent);
+}
+
+/* Custom wayfinding badges shared with the Polytechnic directory.
+   These are not official institution brand colours. */
+.header__dropdown-badge {
+  --poly-accent: var(--color-navy-700);
+  --poly-tint: var(--color-cream-100);
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--poly-tint);
+  border: 1px solid var(--poly-accent);
+  color: var(--poly-accent);
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.header__dropdown-badge--sp  { --poly-accent: #9b3a32; --poly-tint: #f8e8e5; }
+.header__dropdown-badge--np  { --poly-accent: #245d86; --poly-tint: #e7f0f6; }
+.header__dropdown-badge--nyp { --poly-accent: #176b70; --poly-tint: #e4f1f0; }
+.header__dropdown-badge--tp  { --poly-accent: #69508a; --poly-tint: #eee9f5; }
+.header__dropdown-badge--rp  { --poly-accent: #3e6b45; --poly-tint: #e9f1e8; }
+
+/* ── Zone 3: Right actions ────────────────────────────────────── */
+.header__actions {
+  display: none;     /* shown at >=1180px */
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+/* Language toggle — fixed width eliminates shift on locale change */
+.header__lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  width: 5.5rem;           /* ~88px: stable for both EN and 中文 */
+  height: 2.75rem;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);  /* lighter — less competition with CTA */
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.header__lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.header__lang-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.header__lang--active { color: var(--color-white); }
+.header__lang--dim    { color: rgba(255, 255, 255, 0.45); }
+
+.header__lang-sep {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: var(--weight-regular);
+}
+
+/* Login link */
+.header__login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding-inline: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: color var(--transition-fast), background-color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.header__login:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.header__login:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* Primary CTA — min-width covers "Get Free Review" and "免费评估" */
+.header__cta {
+  min-width: 10.5rem;  /* ~168px */
+  justify-content: center;
+  height: 2.75rem;
+}
+
+/* ── Mobile hamburger button ─────────────────────────────────── */
+.header__menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-white);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.header__menu-btn:hover  { background: rgba(255, 255, 255, 0.1); }
+
+.header__menu-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* ── Mobile navigation drawer ────────────────────────────────── */
+.header__mobile-menu {
+  display: none;
+  background: var(--color-navy-900);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-bottom: var(--space-8);
+  max-height: calc(100dvh - var(--header-height));
+  overflow-y: auto;
+  animation: mobile-menu-in 160ms ease;
+}
+
+@keyframes mobile-menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.header__mobile-menu--open { display: block; }
+
+.header__mobile-nav-list {
+  list-style: none;
+  padding: var(--space-2) var(--container-pad-x) 0;
+  margin: 0;
+}
+
+/* 44px+ touch targets */
+.header__mobile-nav-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.header__mobile-nav-link:hover { color: var(--color-white); }
+
+.header__mobile-nav-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.header__mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--container-pad-x) 0;
+}
+
+/* Lang toggle reuses .header__lang-toggle styles */
+
+.header__mobile-cta {
+  width: 100%;
+  justify-content: center;
+  min-height: 2.75rem;
+}
+
+/* ── Desktop three-zone CSS Grid (>= 1180px) ────────────────── */
+@media (min-width: 1180px) {
+  .header__inner {
+    display: grid;
+    grid-template-columns: 220px 1fr 300px;
+    align-items: center;
+  }
+
+  /* Nav items start at the left edge of their zone — close to the logo */
+  .header__nav      { display: flex; align-items: center; justify-content: flex-start; }
+  .header__actions  { display: flex; }
+  .header__menu-btn { display: none; }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .header__mobile-menu,
+  .header__dropdown--open { animation: none; }
+}
+/* ── Logo responsive ───────────────────────────────────────────── */
+/* < 768px: slightly smaller symbol and text */
+@media (max-width: 767px) {
+  .header__logo-mark {
+    width: 1.6875rem;   /* 27px */
+    height: 1.6875rem;
+  }
+
+  .header__wordmark-top    { font-size: 0.9375rem; } /* 15px */
+  .header__wordmark-bottom { font-size: 8px; }
+}
+
+/* < 390px: very narrow — show symbol only, hide wordmark to avoid crowding */
+@media (max-width: 389px) {
+  .header__wordmark { display: none; }
+}
