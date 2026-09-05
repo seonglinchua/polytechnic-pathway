@@ -5,6 +5,7 @@
  */
 
 import { useLocale } from '../../i18n/LocaleContext.jsx';
+import { Link } from 'react-router-dom';
 import './footer.css';
 
 function Footer() {
@@ -21,13 +22,13 @@ function Footer() {
 
             {/* Brand column */}
             <div className="footer__brand">
-              <a
+              <Link
                 className="footer__logo"
-                href="/"
+                to="/"
                 aria-label={`${t.brand.name} — ${f.homeLabel}`}
               >
                 <img
-                  src="/assets/brand/polytechnic-pathway-icon.svg"
+                  src={`${import.meta.env.BASE_URL}assets/brand/polytechnic-pathway-icon.svg`}
                   alt=""
                   aria-hidden="true"
                   className="footer__logo-mark"
@@ -39,7 +40,7 @@ function Footer() {
                   <span className="footer__wordmark-top">POLYTECHNIC</span>
                   <span className="footer__wordmark-bottom">PATHWAY</span>
                 </span>
-              </a>
+              </Link>
               <p className="footer__description">{f.description}</p>
             </div>
 
@@ -54,17 +55,21 @@ function Footer() {
                 <ul role="list" className="footer__col-list">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <a
-                        className="footer__link"
-                        href={link.href}
-                        {...(link.external ? {
-                          target: '_blank',
-                          rel: 'noopener noreferrer',
-                          'aria-label': link.externalLabel,
-                        } : {})}
-                      >
-                        {link.label}
-                      </a>
+                      {link.external ? (
+                        <a
+                          className="footer__link"
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={link.externalLabel}
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link className="footer__link" to={link.href}>
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

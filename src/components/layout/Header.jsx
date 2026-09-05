@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLocale } from '../../i18n/LocaleContext.jsx';
 import { polytechnics } from '../../data/polytechnics.js';
 import './header.css';
@@ -155,10 +156,10 @@ function PolytechnicDropdown({ label, listLabel, locale, icon }) {
       >
         {polytechnics.map((poly, i) => (
           <li key={poly.id}>
-            <a
+            <Link
               ref={i === 0 ? firstRef : null}
               className="header__dropdown-link"
-              href={`/#polytechnic-${poly.id}`}
+              to={`/#polytechnic-${poly.id}`}
               onClick={close}
             >
               <span
@@ -168,7 +169,7 @@ function PolytechnicDropdown({ label, listLabel, locale, icon }) {
                 {poly.abbr}
               </span>
               <span>{locale === 'zh' ? poly.nameZh : poly.name}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -324,9 +325,9 @@ function NavDropdown({ navKey, label, items, icon }) {
 /* ── BrandLogo ───────────────────────────────────────────────── */
 function BrandLogo({ label }) {
   return (
-    <a className="header__logo" href="/" aria-label={label}>
+    <Link className="header__logo" to="/" aria-label={label}>
       <img
-        src="/assets/brand/polytechnic-pathway-icon.svg"
+        src={`${import.meta.env.BASE_URL}assets/brand/polytechnic-pathway-icon.svg`}
         alt=""
         aria-hidden="true"
         className="header__logo-mark"
@@ -338,7 +339,7 @@ function BrandLogo({ label }) {
         <span className="header__wordmark-top">POLYTECHNIC</span>
         <span className="header__wordmark-bottom">PATHWAY</span>
       </span>
-    </a>
+    </Link>
   );
 }
 
@@ -362,9 +363,9 @@ function DesktopNavigation({ t, locale }) {
                 items={t.dropdowns[item.dropdown]}
               />
             ) : (
-              <a className="header__nav-link" href={item.href}>
+              <Link className="header__nav-link" to={item.href}>
                 {t.nav[item.key]}
-              </a>
+              </Link>
             )}
           </li>
         ))}
@@ -391,9 +392,9 @@ function LanguageSwitcher({ locale, onToggle, ariaLabel }) {
 /* ── HeaderCTA ───────────────────────────────────────────────── */
 function HeaderCTA({ label }) {
   return (
-    <a className="btn btn--cta btn--sm header__cta" href="/#free-review">
+    <Link className="btn btn--cta btn--sm header__cta" to="/#free-review">
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -409,9 +410,9 @@ function MobileMenu({ open, t, locale, onLocaleToggle, onClose }) {
         <ul role="list" className="header__mobile-nav-list">
           {NAV_ITEMS.map(({ key, href }) => (
             <li key={key}>
-              <a className="header__mobile-nav-link" href={href} onClick={onClose}>
+              <Link className="header__mobile-nav-link" to={href} onClick={onClose}>
                 {t.nav[key]}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -422,13 +423,13 @@ function MobileMenu({ open, t, locale, onLocaleToggle, onClose }) {
             onToggle={onLocaleToggle}
             ariaLabel={t.nav.languageLabel}
           />
-          <a
+          <Link
             className="btn btn--cta header__mobile-cta"
-            href="/#free-review"
+            to="/#free-review"
             onClick={onClose}
           >
             {t.nav.getFreeReview}
-          </a>
+          </Link>
         </div>
       </nav>
     </div>

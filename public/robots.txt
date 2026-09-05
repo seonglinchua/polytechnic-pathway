@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.polytechnicpathway.example/sitemap.xml
+Sitemap: https://seonglinchua.github.io/polytechnic-pathway/sitemap.xml

@@ -44,7 +44,7 @@ function Hero() {
                   type="image/jpeg"
                 />
                 <img
-                  src="/assets/images/polytechnic-pathway-singapore-landscape-book-hero-v5.png"
+                  src={`${import.meta.env.BASE_URL}assets/images/polytechnic-pathway-singapore-landscape-book-hero-v5.png`}
                   alt=""
                   aria-hidden="true"
                   className="hero__image"

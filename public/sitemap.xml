@@ -5,14 +5,11 @@
 >
   <!-- Root / landing page (single-page app — sections are anchors) -->
   <url>
-    <loc>https://www.polytechnicpathway.sg/</loc>
-    <lastmod>2026-07-25</lastmod>
+    <loc>https://seonglinchua.github.io/polytechnic-pathway/</loc>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <!-- Bilingual alternates — update to separate URL paths in Phase 2 -->
-    <xhtml:link rel="alternate" hreflang="en"      href="https://www.polytechnicpathway.sg/"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.polytechnicpathway.sg/?lang=zh"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.polytechnicpathway.sg/"/>
+    <!-- Add hreflang alternates when locales have distinct crawlable URLs. -->
   </url>
 
   <!--
