@@ -40,7 +40,7 @@ function Hero() {
             <div className="hero__visual">
               <picture>
                 <source
-                  srcSet="/assets/images/polytechnic-pathway-singapore-landscape-book-hero-v5.jpg"
+                  srcSet={`${import.meta.env.BASE_URL}assets/images/polytechnic-pathway-singapore-landscape-book-hero-v5.jpg`}
                   type="image/jpeg"
                 />
                 <img
